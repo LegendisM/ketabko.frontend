@@ -1,0 +1,13 @@
+{
+    "locales": [
+        "fa",
+        "en"
+    ],
+    "defaultLocale": "fa",
+    "defaultNS": "common",
+    "pages": {
+        "*": [
+            "common"
+        ]
+    }
+}
