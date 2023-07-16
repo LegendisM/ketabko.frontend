@@ -1,14 +1,14 @@
+import { i18n } from "@/i18n/i18n";
 import Head from "next/head";
 
 export default function RootLayout({ children }: {
   children: React.ReactNode
 }) {
-  const lang = 'fa';
   return (
-    <html lang={lang} dir={lang == 'fa' ? 'rtl' : 'ltr'}>
+    <html lang="fa" dir="rtl">
       <Head>
-        <title>{'title'}</title>
-        <meta name="description" content={'description'} />
+        <title>{i18n('common:title')}</title>
+        <meta name="description" content={i18n('common:description')} />
       </Head>
       <body>{children}</body>
     </html>
