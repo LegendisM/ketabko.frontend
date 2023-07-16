@@ -1,15 +1,14 @@
 import Head from "next/head";
-import useTranslation from 'next-translate/useTranslation';
 
 export default function RootLayout({ children }: {
   children: React.ReactNode
 }) {
-  const { t, lang } = useTranslation();
+  const lang = 'fa';
   return (
     <html lang={lang} dir={lang == 'fa' ? 'rtl' : 'ltr'}>
       <Head>
-        <title>{t('title')}</title>
-        <meta name="description" content={t('description')} />
+        <title>{'title'}</title>
+        <meta name="description" content={'description'} />
       </Head>
       <body>{children}</body>
     </html>
