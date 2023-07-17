@@ -2,5 +2,9 @@
     "common": {
         "title": "کتابکو",
         "description": "توضیحات"
+    },
+    "pages": {
+        "home": "خانه",
+        "auth": "احراز هویت"
     }
 }

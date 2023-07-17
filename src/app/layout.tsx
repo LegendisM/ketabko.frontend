@@ -1,16 +1,24 @@
-import { i18n } from "@/i18n/i18n";
 import Head from "next/head";
+import { I18nLanguage, i18n } from "@/i18n/i18n";
+import Theme from "@/components/common/theme.component";
+import Header from "@/components/common/header.component";
+import { FC, PropsWithChildren } from "react";
 
-export default function RootLayout({ children }: {
-  children: React.ReactNode
-}) {
+export const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <html lang="fa" dir="rtl">
+    <html lang={I18nLanguage.FA} dir="rtl">
       <Head>
         <title>{i18n('common:title')}</title>
         <meta name="description" content={i18n('common:description')} />
       </Head>
-      <body>{children}</body>
-    </html>
-  )
+      <body style={{ margin: 0 }}>
+        <Theme>
+          <Header />
+          {children}
+        </Theme>
+      </body>
+    </html >
+  );
 }
+
+export default RootLayout;

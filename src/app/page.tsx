@@ -1,9 +1,12 @@
-import { i18n } from "@/i18n/i18n";
+import { Typography } from "@mui/material";
+import { FC, PropsWithChildren } from "react";
 
-export default function Home() {
+export const Home: FC<PropsWithChildren> = () => {
   return (
-    <div>
-      <p>{i18n('common:title')}</p>
-    </div>
-  )
+    <Typography>
+      Books
+    </Typography>
+  );
 }
+
+export default Home;
