@@ -2,9 +2,10 @@ import { Typography, Box, Paper, Button, Card, CardActions, CardContent, CardMed
 import { FC, PropsWithChildren } from "react";
 import CategoryIcon from "@mui/icons-material/Category";
 
-export const Home: FC<PropsWithChildren> = () => {
+const Home: FC<PropsWithChildren> = () => {
   return (
     <Box margin={'1rem'} display={'flex'} flexDirection={'row'} gap={3}>
+      home
       {
         // TODO: implement book grid items
       }

@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react";
 
-export const Logo: FC<PropsWithChildren & { isText: boolean }> = ({ isText }) => {
+const Logo: FC<PropsWithChildren & { isText: boolean }> = ({ isText }) => {
     return (
         <img
             src={`/images/common/logo${isText ? '-text' : ''}.png`}

@@ -8,5 +8,9 @@ export const PAGES: { name: string, href: string }[] = [
     {
         name: i18n('pages:auth'),
         href: "/auth"
+    },
+    {
+        name: i18n('pages:about'),
+        href: "/about"
     }
 ]

@@ -4,7 +4,7 @@ import Theme from "@/components/common/theme.component";
 import Header from "@/components/common/header.component";
 import { FC, PropsWithChildren } from "react";
 
-export const RootLayout: FC<PropsWithChildren> = ({ children }) => {
+const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang={I18nLanguage.FA} dir="rtl">
       <Head>

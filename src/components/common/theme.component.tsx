@@ -5,11 +5,17 @@ import { FC, PropsWithChildren } from "react";
 import localFont from "next/font/local";
 
 const defaultFont = localFont({
-    src: './../../../public/fonts/Medium.ttf'
-});
-
-const BoldFont = localFont({
-    src: './../../../public/fonts/Black.ttf'
+    src: [
+        {
+            path: './../../../public/fonts/Medium.ttf',
+            weight: '400'
+        },
+        {
+            path: './../../../public/fonts/Black.ttf',
+            weight: '600'
+        }
+    ],
+    variable: '--font-default'
 });
 
 let theme = createTheme({
@@ -43,7 +49,7 @@ let theme = createTheme({
         }
     },
     typography: {
-        fontFamily: `${defaultFont.style.fontFamily},${BoldFont.style.fontFamily}`
+        fontFamily: `${defaultFont.style.fontFamily}`
     },
     shape: {
         borderRadius: 6
@@ -52,7 +58,7 @@ let theme = createTheme({
 
 theme = responsiveFontSizes(theme);
 
-export const Theme: FC<PropsWithChildren> = ({ children }) => {
+const Theme: FC<PropsWithChildren> = ({ children }) => {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ backgroundColor: theme.palette.background.default, width: '100vw', height: '100vh' }}>

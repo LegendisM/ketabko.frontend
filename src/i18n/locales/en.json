@@ -1,10 +1,12 @@
 {
     "common": {
         "title": "Ketabko",
-        "description": "Description"
+        "description": "Description",
+        "welcome": "به کتابکو خوش آمدید"
     },
     "pages": {
         "home": "Home",
-        "auth": "Authentication"
+        "auth": "Authentication",
+        "pages:about": "About Us"
     }
 }

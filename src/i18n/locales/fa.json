@@ -1,10 +1,12 @@
 {
     "common": {
         "title": "کتابکو",
-        "description": "توضیحات"
+        "description": "توضیحات",
+        "welcome": "به کتابکو خوش آمدید"
     },
     "pages": {
         "home": "خانه",
-        "auth": "احراز هویت"
+        "auth": "احراز هویت",
+        "about": "درباره ما"
     }
 }
