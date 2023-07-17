@@ -1,5 +1,5 @@
 "use client"
-import { createTheme, Box } from "@mui/material";
+import { createTheme, Box, responsiveFontSizes } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { FC, PropsWithChildren } from "react";
 import localFont from "next/font/local";
@@ -12,7 +12,7 @@ const BoldFont = localFont({
     src: './../../../public/fonts/Black.ttf'
 });
 
-const theme = createTheme({
+let theme = createTheme({
     palette: {
         mode: 'light',
         primary: {
@@ -31,9 +31,14 @@ const theme = createTheme({
     components: {
         MuiAppBar: {
             defaultProps: {
-                position: 'fixed',
+                position: 'relative',
                 elevation: 0,
                 color: 'default'
+            }
+        },
+        MuiDrawer: {
+            defaultProps: {
+                elevation: 2
             }
         }
     },
@@ -44,6 +49,8 @@ const theme = createTheme({
         borderRadius: 6
     },
 });
+
+theme = responsiveFontSizes(theme);
 
 export const Theme: FC<PropsWithChildren> = ({ children }) => {
     return (
