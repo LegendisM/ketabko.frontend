@@ -5,16 +5,17 @@ import Header from "@/components/common/header.component";
 import { FC, PropsWithChildren } from "react";
 import './../styles/global.style.css';
 
+export async function generateMetadata({ params }: { params: any }) {
+  return {
+    title: i18n('common:title'),
+    description: i18n('common:description')
+  }
+}
+
+
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang={I18nLanguage.FA} dir="rtl">
-      <Head>
-        {
-          // TODO: fix that loading of title and meta
-        }
-        <title>{i18n('common:title')}</title>
-        <meta name="description" content={i18n('common:description')} />
-      </Head>
       <Theme>
         <Header />
         {children}

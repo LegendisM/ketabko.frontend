@@ -1,14 +1,11 @@
 import _ from "lodash";
-import enStorage from "./locales/en.json";
 import faStorage from "./locales/fa.json";
 
 export enum I18nLanguage {
-    EN = 'en',
     FA = 'fa'
 }
 
 export const i18nStorage: Record<I18nLanguage, any> = {
-    en: enStorage,
     fa: faStorage,
 };
 
