@@ -29,5 +29,7 @@ body {
 
 /* horizontal mask */
 .horizontal-mask {
-  -webkit-mask-box-image: linear-gradient(90deg, transparent 0%, black 25px, black calc(100% - 25px), transparent 100%);
+  padding-right: 3px;
+  padding-left: 3px;
+  -webkit-mask-box-image: linear-gradient(90deg, transparent 0%, black 6px, black calc(100% - 3px), transparent 100%);
 }
