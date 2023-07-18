@@ -71,7 +71,7 @@ const SignUp: FC<PropsWithChildren> = () => {
                     <Button type="submit" variant="contained" sx={{ marginTop: '15px', marginBottom: '8px' }}>{i18n('common:signup')}</Button>
                     <Divider sx={{ marginBottom: '8px' }} />
                     <Link href={'/auth/signin'} style={{ width: '100%' }}>
-                        <Button variant="text" fullWidth>
+                        <Button variant="outlined" fullWidth>
                             <Typography variant="body2" textAlign={'center'}>
                                 {i18n('common:signin-long')}
                             </Typography>

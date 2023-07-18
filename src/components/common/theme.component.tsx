@@ -8,6 +8,7 @@ import rtlPlugin from 'stylis-plugin-rtl';
 import localFont from "next/font/local";
 import { createTheme, Box, responsiveFontSizes } from "@mui/material";
 
+// TODO: use better fonts
 const defaultFont = localFont({
     src: [
         {
