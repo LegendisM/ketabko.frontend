@@ -63,7 +63,7 @@ let theme = createTheme({
     },
     shape: {
         borderRadius: 6
-    },
+    }
 });
 
 theme = responsiveFontSizes(theme);
@@ -72,6 +72,9 @@ const Theme: FC<PropsWithChildren> = ({ children }) => {
     return (
         <CacheProvider value={cacheRtl}>
             <ThemeProvider theme={theme}>
+                {
+                    // TODO: fix page height background color support
+                }
                 <Box sx={{ backgroundColor: theme.palette.background.default, width: '100vw', height: '100vh' }}>
                     {children}
                 </Box>

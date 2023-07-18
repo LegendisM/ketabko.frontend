@@ -27,6 +27,7 @@ const SignUp: FC<PropsWithChildren> = () => {
     });
 
     const onAuthSubmit = async (data: unknown) => {
+        // TODO: complete/fix signin process
         await signup({ data })
             .then(res => console.log(res))
             .catch(e => console.log(e));
@@ -67,10 +68,10 @@ const SignUp: FC<PropsWithChildren> = () => {
                             maxLength: { value: 18, message: i18n('validation:max', { max: 18 }) }
                         })}
                     />
-                    <Button type="submit" variant="contained" sx={{ marginTop: '15px', marginBottom: '12px' }}>{i18n('common:signup')}</Button>
-                    <Divider sx={{ marginBottom: '12px' }} />
-                    <Link href={'/auth/signin'}  style={{ width: '100%' }}>
-                        <Button variant="outlined" fullWidth>
+                    <Button type="submit" variant="contained" sx={{ marginTop: '15px', marginBottom: '8px' }}>{i18n('common:signup')}</Button>
+                    <Divider sx={{ marginBottom: '8px' }} />
+                    <Link href={'/auth/signin'} style={{ width: '100%' }}>
+                        <Button variant="text" fullWidth>
                             <Typography variant="body2" textAlign={'center'}>
                                 {i18n('common:signin-long')}
                             </Typography>

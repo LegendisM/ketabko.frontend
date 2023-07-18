@@ -1,0 +1,33 @@
+body {
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  border-radius: 50px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e4e4e4;
+  border-radius: 50px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #6e4b93c9;
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #6e4b93e8;
+}
+
+/* horizontal mask */
+.horizontal-mask {
+  -webkit-mask-box-image: linear-gradient(90deg, transparent 0%, black 25px, black calc(100% - 25px), transparent 100%);
+}
