@@ -1,3 +1,4 @@
+"use client"
 import { FC, PropsWithChildren } from "react";
 
 const Logo: FC<PropsWithChildren & { isText: boolean }> = ({ isText }) => {

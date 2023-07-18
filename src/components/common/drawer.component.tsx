@@ -1,14 +1,16 @@
+"use client"
 import Link from "next/link";
 import { i18n } from "@/i18n/i18n";
 import { FC, PropsWithChildren } from "react";
 import { PAGES } from "@/constants/global.constant";
 import { Drawer, Box, Avatar, Typography, List, ListItem, Divider } from "@mui/material";
 import ArrowIcon from "@mui/icons-material/KeyboardArrowLeft";
+import AvatarPro from "./avatar.component";
 
 const DrawerPro: FC<PropsWithChildren & { opened: boolean, onClose: Function, forceClose: Function }> = ({ opened, onClose, forceClose }) => {
     return (
         <Drawer
-            anchor={'right'}
+            anchor={'left'}
             open={opened}
             onClose={() => onClose()}
         >
@@ -21,7 +23,7 @@ const DrawerPro: FC<PropsWithChildren & { opened: boolean, onClose: Function, fo
                 backgroundColor: '#9d0a6b',
                 backgroundBlendMode: 'soft-light'
             }} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
-                <Avatar src="/images/common/avatar.png" sx={{ width: '60px', height: '60px' }} />
+                <AvatarPro />
                 <Typography variant="body2" fontWeight={'bold'} color={'white'} marginTop={'14px'}>{i18n('common:welcome')}</Typography>
             </Box>
             <List disablePadding>

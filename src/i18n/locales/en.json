@@ -2,11 +2,22 @@
     "common": {
         "title": "Ketabko",
         "description": "Description",
-        "welcome": "به کتابکو خوش آمدید"
+        "welcome": "Welcome to Ketabko",
+        "username": "Username",
+        "password": "Password",
+        "signin": "Signin",
+        "signup": "Create account",
+        "signin-long": "Login to account",
+        "signup-long": "Create account"
     },
     "pages": {
         "home": "Home",
         "auth": "Authentication",
-        "pages:about": "About Us"
+        "about": "About Us"
+    },
+    "validation": {
+        "required": "The desired field is mandatory",
+        "min": "The number of characters entered is less than {min}",
+        "max": "The number of characters entered is greater than {max}"
     }
 }

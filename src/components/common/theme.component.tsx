@@ -1,8 +1,12 @@
 "use client"
-import { createTheme, Box, responsiveFontSizes } from "@mui/material";
-import { ThemeProvider } from "@emotion/react";
 import { FC, PropsWithChildren } from "react";
+import { ThemeProvider } from "@emotion/react";
+import createCache from '@emotion/cache';
+import { prefixer } from 'stylis';
+import { CacheProvider } from '@emotion/react';
+import rtlPlugin from 'stylis-plugin-rtl';
 import localFont from "next/font/local";
+import { createTheme, Box, responsiveFontSizes } from "@mui/material";
 
 const defaultFont = localFont({
     src: [
@@ -18,7 +22,13 @@ const defaultFont = localFont({
     variable: '--font-default'
 });
 
+const cacheRtl = createCache({
+    key: 'muirtl',
+    stylisPlugins: [prefixer, rtlPlugin],
+});
+
 let theme = createTheme({
+    direction: 'rtl',
     palette: {
         mode: 'light',
         primary: {
@@ -60,11 +70,13 @@ theme = responsiveFontSizes(theme);
 
 const Theme: FC<PropsWithChildren> = ({ children }) => {
     return (
-        <ThemeProvider theme={theme}>
-            <Box sx={{ backgroundColor: theme.palette.background.default, width: '100vw', height: '100vh' }}>
-                {children}
-            </Box>
-        </ThemeProvider>
+        <CacheProvider value={cacheRtl}>
+            <ThemeProvider theme={theme}>
+                <Box sx={{ backgroundColor: theme.palette.background.default, width: '100vw', height: '100vh' }}>
+                    {children}
+                </Box>
+            </ThemeProvider>
+        </CacheProvider>
     );
 }
 
