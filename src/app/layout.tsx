@@ -15,12 +15,10 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
         <title>{i18n('common:title')}</title>
         <meta name="description" content={i18n('common:description')} />
       </Head>
-      <body>
-        <Theme>
-          <Header />
-          {children}
-        </Theme>
-      </body>
+      <Theme>
+        <Header />
+        {children}
+      </Theme>
     </html >
   );
 }
