@@ -1,7 +1,8 @@
 import { FC, PropsWithChildren } from "react";
 import StarIcon from "@mui/icons-material/StarRounded";
 import StarBorderIcon from "@mui/icons-material/StarBorderRounded";
-import { Container, Paper, Typography, Box, Stack, Divider, Rating, Chip, List, ListItem } from "@mui/material";
+import WriteIcon from "@mui/icons-material/DriveFileRenameOutline";
+import { Container, Paper, Typography, Box, Stack, Divider, Rating, Chip, List, ListItem, ListItemIcon } from "@mui/material";
 import { i18n } from "@/i18n/i18n";
 
 const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id } }) => {
@@ -38,9 +39,18 @@ const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id
             </Paper>
             <Paper sx={{ marginTop: '15px', padding: '15px' }}>
                 <List>
-                    <ListItem>test</ListItem>
-                    <ListItem>test</ListItem>
-                    <ListItem>test</ListItem>
+                    <ListItem>
+                        <ListItemIcon>
+                            <WriteIcon />
+                        </ListItemIcon>
+                        <Typography>فرار از گرداب شیطان</Typography>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemIcon>
+                            <WriteIcon />
+                        </ListItemIcon>
+                        <Typography>عادت 66 روز</Typography>
+                    </ListItem>
                 </List>
             </Paper>
         </Container>

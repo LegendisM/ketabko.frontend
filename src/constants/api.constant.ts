@@ -6,6 +6,10 @@ export const API_CONFIG: Record<string, Record<string, string>> = {
         ['signin']: '/auth/signin',
         ['signup']: '/auth/signup',
     },
+    ['book']: {
+        ['explore']: '/books/explore',
+        ['find']: '/books/:id'
+    }
 };
 
 export const ApiEndpoint = (category: string, key: string): string => {
