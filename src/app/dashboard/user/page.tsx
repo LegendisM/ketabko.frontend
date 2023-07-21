@@ -3,10 +3,21 @@ import { AuthContext } from "@/components/common/auth";
 import AvatarPro from "@/components/common/avatar.component";
 import { i18n } from "@/i18n/i18n";
 import { Box, Container, Paper, Typography, Divider, TextField } from "@mui/material";
-import { FC, PropsWithChildren, useContext } from "react";
+import { FC, PropsWithChildren, useContext, useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 const User: FC<PropsWithChildren> = () => {
     const { user } = useContext(AuthContext);
+    const { setValue, register } = useForm({
+        defaultValues: {
+            username: ''
+        }
+    });
+
+    useEffect(() => {
+        return setValue('username', user?.username ?? '');
+    }, [user])
+
     return (
         <Box marginTop={'5vh'}>
             <Container maxWidth="sm" >
@@ -19,9 +30,8 @@ const User: FC<PropsWithChildren> = () => {
                     <TextField
                         label={i18n('common:username')}
                         margin="dense"
-                        value={user?.username}
                         fullWidth
-                        disabled
+                        {...register('username', { disabled: true })}
                     />
                 </Paper>
             </Container>

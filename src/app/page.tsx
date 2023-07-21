@@ -3,6 +3,7 @@ import BookCategory from "@/components/book/category/book-category.component";
 import { FC, PropsWithChildren } from "react";
 
 const Home: FC<PropsWithChildren> = () => {
+  // TODO: fetch books with paginate and fill this categories
   return (
     <>
       <BookCategory name="رایگان استفاده کنید">

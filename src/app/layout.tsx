@@ -12,7 +12,6 @@ export async function generateMetadata({ params }: { params: any }) {
   }
 }
 
-
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang={I18nLanguage.FA} dir="rtl">
