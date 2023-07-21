@@ -1,15 +1,20 @@
 "use client"
 import _ from "lodash";
+import Link from "next/link";
 import AvatarPro from "@/components/common/avatar.component";
 import { i18n } from "@/i18n/i18n";
-import { Box, Paper, TextField, Button, Container, Typography, Divider, Alert, FormControl, FormHelperText, Input, InputLabel } from "@mui/material";
+import { Box, Paper, TextField, Button, Container, Typography, Divider, Alert } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useApi } from "@/common/services/axios.service";
 import { ApiEndpoint } from "@/constants/api.constant";
-import { FC, PropsWithChildren } from "react";
-import Link from "next/link";
+import { FC, PropsWithChildren, useContext } from "react";
+import { IAuthResponse } from "@/common/interfaces/auth.interface";
+import { AuthContext } from "@/components/common/auth";
+import { useSetState } from "react-use";
 
 const SignUp: FC<PropsWithChildren> = () => {
+    const { onEnter } = useContext(AuthContext);
+    const [messages, setMessages] = useSetState({ error: '' });
     const {
         register,
         handleSubmit,
@@ -21,16 +26,21 @@ const SignUp: FC<PropsWithChildren> = () => {
             password: ''
         }
     });
-    const [{ loading }, signup] = useApi({
+    const [{ loading }, signup] = useApi<IAuthResponse>({
         url: ApiEndpoint('auth', 'signup'),
         method: 'POST'
     });
 
     const onAuthSubmit = async (data: unknown) => {
-        // TODO: complete/fix signin process
         await signup({ data })
-            .then(res => console.log(res))
-            .catch(e => console.log(e));
+            .then(({ data: { state, token, message } }) => {
+                if (state) {
+                    onEnter!(token);
+                } else {
+                    setMessages({ error: message });
+                }
+            })
+            .catch(() => null);
     }
 
     return (
@@ -59,6 +69,7 @@ const SignUp: FC<PropsWithChildren> = () => {
                     />
                     <TextField
                         label={i18n('common:password')}
+                        type="password"
                         margin="dense"
                         aria-describedby="password-helper"
                         helperText={errors.password?.message}
@@ -68,10 +79,20 @@ const SignUp: FC<PropsWithChildren> = () => {
                             maxLength: { value: 18, message: i18n('validation:max', { max: 18 }) }
                         })}
                     />
-                    <Button type="submit" variant="contained" sx={{ marginTop: '15px', marginBottom: '8px' }}>{i18n('common:signup')}</Button>
+                    {messages.error.length != 0 ?
+                        <Alert
+                            severity='error'
+                            sx={{ marginTop: '10px' }}
+                            onClose={() => setMessages({ error: '' })}
+                        >
+                            {messages.error}
+                        </Alert>
+                        : null
+                    }
+                    <Button type="submit" color="secondary" variant="contained" disableElevation sx={{ marginTop: '12.5px', marginBottom: '8px' }}>{i18n('common:signup')}</Button>
                     <Divider sx={{ marginBottom: '8px' }} />
                     <Link href={'/auth/signin'} style={{ width: '100%' }}>
-                        <Button variant="outlined" fullWidth>
+                        <Button variant="text" fullWidth>
                             <Typography variant="body2" textAlign={'center'}>
                                 {i18n('common:signin-long')}
                             </Typography>

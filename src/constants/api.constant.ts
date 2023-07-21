@@ -1,6 +1,9 @@
 export const API_CONFIG: Record<string, Record<string, string>> = {
     ['main']: {
-        ['base']: 'http://127.0.0.1/api/v1'
+        ['base']: 'http://127.0.0.1:3000/api/v1'
+    },
+    ['user']: {
+        ['me']: '/users/me'
     },
     ['auth']: {
         ['signin']: '/auth/signin',
