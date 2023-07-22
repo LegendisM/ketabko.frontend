@@ -1,6 +1,9 @@
+import _ from "lodash";
+
 export const API_CONFIG: Record<string, Record<string, string>> = {
     ['main']: {
-        ['base']: 'http://127.0.0.1:3000/api/v1'
+        ['base']: 'http://127.0.0.1:3000/api/v1',
+        ['storage']: 'http://127.0.0.1:3000'
     },
     ['user']: {
         ['me']: '/users/me'
@@ -10,11 +13,15 @@ export const API_CONFIG: Record<string, Record<string, string>> = {
         ['signup']: '/auth/signup',
     },
     ['book']: {
-        ['explore']: '/books/explore',
-        ['find']: '/books/:id'
+        ['all']: '/books/',
+        ['find']: '/books/{id}'
     }
 };
 
-export const ApiEndpoint = (category: string, key: string): string => {
-    return API_CONFIG[category][key];
+export const ApiEndpoint = (category: string, key: string, values: Record<string, any> = {}): string => {
+    let result = API_CONFIG[category][key];
+    _.map(values, (value, key) => {
+        result = result.replaceAll(`{${key}}`, value);
+    });
+    return result;
 }

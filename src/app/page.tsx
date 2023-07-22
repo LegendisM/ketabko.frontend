@@ -1,82 +1,64 @@
+"use client"
+import _ from "lodash";
+import { IBook } from "@/common/interfaces/book.interface";
+import { IPagination } from "@/common/interfaces/pagination";
+import { useApi } from "@/common/services/axios.service";
 import BookCategoryItem from "@/components/book/category/book-category-item";
 import BookCategory from "@/components/book/category/book-category.component";
+import { ApiEndpoint } from "@/constants/api.constant";
 import { FC, PropsWithChildren } from "react";
+import Loading from "@/components/common/loading";
 
 const Home: FC<PropsWithChildren> = () => {
-  // TODO: fetch books with paginate and fill this categories
+  const [{ data: books, loading }, fetchBooks] = useApi<IPagination<IBook>>({
+    url: ApiEndpoint('book', 'all'),
+    params: { page: 1, limit: 20 }
+  }, { manual: false });
+
   return (
-    <>
+    <Loading loading={loading}>
       <BookCategory name="رایگان استفاده کنید">
-        <BookCategoryItem
-          id="identifier"
-          title="اثر مرکب"
-          description="توضیحاتی بسی طولانی و زیبا که قراره در این بخش قرار بگیره"
-          image="/images/book/book-flat.png" />
-        <BookCategoryItem
-          id="identifier"
-          title="اثر مرکب"
-          description="توضیحاتی بسی طولانی و زیبا که قراره در این بخش قرار بگیره"
-          image="/images/book/book-flat.png" />
-        <BookCategoryItem
-          id="identifier"
-          title="اثر مرکب"
-          description="توضیحاتی بسی طولانی و زیبا که قراره در این بخش قرار بگیره"
-          image="/images/book/book-flat.png" />
-        <BookCategoryItem
-          id="identifier"
-          title="اثر مرکب"
-          description="توضیحاتی بسی طولانی و زیبا که قراره در این بخش قرار بگیره"
-          image="/images/book/book-flat.png" />
+        {
+          books?.items.map((book) => (
+            <BookCategoryItem
+              id={book.id}
+              title={book.title}
+              description={book.description}
+              image={`${ApiEndpoint('main', 'storage')}/${book.cover.path}`}
+              mode="info"
+            />
+          ))
+        }
       </BookCategory>
 
       <BookCategory name="ارزان تر از یک بستنی">
-        <BookCategoryItem
-          id="identifier"
-          title="اثر مرکب"
-          description="توضیحاتی بسی طولانی و زیبا که قراره در این بخش قرار بگیره"
-          image="/images/book/book-flat.png"
-          mode="success" />
-        <BookCategoryItem
-          id="identifier"
-          title="اثر مرکب"
-          description="توضیحاتی بسی طولانی و زیبا که قراره در این بخش قرار بگیره"
-          image="/images/book/book-flat.png"
-          mode="success" />
-        <BookCategoryItem
-          id="identifier"
-          title="اثر مرکب"
-          description="توضیحاتی بسی طولانی و زیبا که قراره در این بخش قرار بگیره"
-          image="/images/book/book-flat.png"
-          mode="success" />
+        {
+          _.shuffle(books?.items.map((book) => (
+            <BookCategoryItem
+              id={book.id}
+              title={book.title}
+              description={book.description}
+              image={`${ApiEndpoint('main', 'storage')}/${book.cover.path}`}
+              mode="success"
+            />
+          )))
+        }
       </BookCategory>
 
       <BookCategory name="هرآنچه که باید منتظر آن باشید">
-        <BookCategoryItem
-          id="identifier"
-          title="اثر مرکب"
-          description="توضیحاتی بسی طولانی و زیبا که قراره در این بخش قرار بگیره"
-          image="/images/book/book-flat.png"
-          mode="info" />
-        <BookCategoryItem
-          id="identifier"
-          title="اثر مرکب"
-          description="توضیحاتی بسی طولانی و زیبا که قراره در این بخش قرار بگیره"
-          image="/images/book/book-flat.png"
-          mode="info" />
-        <BookCategoryItem
-          id="identifier"
-          title="اثر مرکب"
-          description="توضیحاتی بسی طولانی و زیبا که قراره در این بخش قرار بگیره"
-          image="/images/book/book-flat.png"
-          mode="info" />
-        <BookCategoryItem
-          id="identifier"
-          title="اثر مرکب"
-          description="توضیحاتی بسی طولانی و زیبا که قراره در این بخش قرار بگیره"
-          image="/images/book/book-flat.png"
-          mode="info" />
+        {
+          _.shuffle(books?.items.map((book) => (
+            <BookCategoryItem
+              id={book.id}
+              title={book.title}
+              description={book.description}
+              image={`${ApiEndpoint('main', 'storage')}/${book.cover.path}`}
+              mode="secondary"
+            />
+          )))
+        }
       </BookCategory>
-    </>
+    </Loading>
   );
 }
 
