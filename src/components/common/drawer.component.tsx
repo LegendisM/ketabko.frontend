@@ -1,13 +1,15 @@
 "use client"
 import Link from "next/link";
 import { i18n } from "@/i18n/i18n";
-import { FC, PropsWithChildren } from "react";
-import { PAGES } from "@/constants/global.constant";
-import { Drawer, Box, Avatar, Typography, List, ListItem, Divider } from "@mui/material";
+import { FC, PropsWithChildren, useContext } from "react";
+import { PAGES } from "@/constants/page.constant";
+import { Drawer, Box, Typography, List, ListItem, Divider } from "@mui/material";
 import ArrowIcon from "@mui/icons-material/KeyboardArrowLeft";
 import AvatarPro from "./avatar.component";
+import { AuthContext } from "./auth";
 
 const DrawerPro: FC<PropsWithChildren & { opened: boolean, onClose: Function, forceClose: Function }> = ({ opened, onClose, forceClose }) => {
+    const { state: authState } = useContext(AuthContext);
     return (
         <Drawer
             anchor={'left'}
@@ -28,15 +30,19 @@ const DrawerPro: FC<PropsWithChildren & { opened: boolean, onClose: Function, fo
             </Box>
             <List disablePadding>
                 {
-                    PAGES.map(({ name, href }) => (
-                        <ListItem key={name} divider onClick={() => forceClose()}>
-                            <Link href={href} style={{ color: 'inherit', textDecoration: 'none', width: '100%' }} >
-                                <Box display={'flex'} justifyItems={'baseline'} justifyContent={'space-between'}>
-                                    <Typography>{name}</Typography>
-                                    <ArrowIcon />
-                                </Box>
-                            </Link>
-                        </ListItem>
+                    PAGES.filter(page => page.inMenu).map(({ name, href, auth }) => (
+                        (auth == 'all' || auth == authState) ?
+                            (
+                                <ListItem key={name} divider onClick={() => forceClose()}>
+                                    <Link href={href} style={{ color: 'inherit', textDecoration: 'none', width: '100%' }} >
+                                        <Box display={'flex'} justifyItems={'baseline'} justifyContent={'space-between'}>
+                                            <Typography>{name}</Typography>
+                                            <ArrowIcon />
+                                        </Box>
+                                    </Link>
+                                </ListItem>
+                            )
+                            : null
                     ))
                 }
             </List>
