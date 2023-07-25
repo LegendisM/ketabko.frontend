@@ -1,6 +1,6 @@
 "use client";
-import { ApiEndpoint } from "@/constants/api.constant";
 import axios from "axios";
+import { ApiEndpoint } from "@/constants/api.constant";
 import { makeUseAxios } from "axios-hooks";
 import { getAuthToken } from "./auth.service";
 
@@ -20,5 +20,5 @@ instance.interceptors.request.use((config) => {
 
 export const useApi = makeUseAxios({
     axios: instance,
-    defaultOptions: { manual: true, autoCancel: false }
+    defaultOptions: { manual: true, useCache: false, autoCancel: false }
 });

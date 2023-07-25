@@ -3,20 +3,30 @@ import { FC, PropsWithChildren } from "react";
 import StarIcon from "@mui/icons-material/StarRounded";
 import StarBorderIcon from "@mui/icons-material/StarBorderRounded";
 import WriteIcon from "@mui/icons-material/DriveFileRenameOutline";
-import { Container, Paper, Typography, Box, Stack, Divider, Rating, Chip, List, ListItem, ListItemIcon } from "@mui/material";
+import ListRoundedIcon from "@mui/icons-material/ViewListRounded";
+import { Container, Paper, Typography, Box, Stack, Divider, Rating, Chip, Card, Button, ButtonGroup } from "@mui/material";
 import { i18n } from "@/i18n/i18n";
 import { useApi } from "@/common/services/axios.service";
 import { ApiEndpoint } from "@/constants/api.constant";
-import { IBook } from "@/common/interfaces/book.interface";
-import Loading from "@/components/common/loading";
+import { IBook } from "@/common/interfaces/book/book.interface";
+import NetworkStatus from "@/components/common/network-status.component";
+import { IResponseError } from "@/common/interfaces/common/error.interface";
+import BookSectionDocumentCreate from "@/components/book/section/book-section-document-create.component";
+import { useSetState } from "react-use";
+import { IBookSection } from "@/common/interfaces/book/book-section.interface";
+import BookSectionDocumentList from "@/components/book/section/book-section-document-list.component";
 
 const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id } }) => {
-    const [{ data: book, loading }, fetchBook] = useApi<IBook>({
+    const [dialogs, setDialogs] = useSetState<{ create: { section: IBookSection | null }, list: { section: IBookSection | null } }>({
+        create: { section: null },
+        list: { section: null }
+    });
+    const [{ data: book, loading, error }, fetchBook] = useApi<IBook, any, IResponseError>({
         url: ApiEndpoint('book', 'find', { id })
     }, { manual: false });
 
     return (
-        <Loading loading={loading} >
+        <NetworkStatus loading={loading} error={error} onRetry={fetchBook}>
             <Container sx={{ padding: '15px' }}>
                 <Paper sx={{ padding: '15px' }}>
                     <Stack display={'flex'} flexDirection={'row'}>
@@ -34,7 +44,7 @@ const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id
                     <Divider sx={{ marginTop: '5px', marginBottom: '12.5px' }} />
                     <Stack display={'flex'} direction={'row'} justifyContent={'space-between'} gap={1} flexWrap={'wrap'}>
                         <Stack display={'flex'} gap={1} direction={'row'} flexWrap={'wrap'}>
-                            <Chip label={`${i18n('common:price')} ${book?.price ?? '-'} ${i18n('common:payment-unit')}`} />
+                            <Chip label={`${i18n('common:price')} ${book?.price != 0 ? `${book?.price ?? '-'} ${i18n('common:payment-unit')}` : i18n('common:free')}`} />
                             <Chip label={`${i18n('common:writer')} : ${book?.author.name ?? '-'}`} />
                         </Stack>
                         <Rating
@@ -48,21 +58,66 @@ const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id
                     </Stack>
                 </Paper>
                 <Paper sx={{ marginTop: '15px', padding: '15px' }}>
-                    <List>
+                    <Box display={'flex'} flexDirection={'row'} alignItems={'center'} gap={1}>
+                        <ListRoundedIcon />
+                        <Typography fontWeight={'bold'}>الگوریتم ها</Typography>
+                    </Box>
+                    <Divider sx={{ marginY: '12px' }} />
+                    <Stack direction={'column'} gap={2}>
                         {
-                            book?.sections.map((section) => (
-                                <ListItem>
-                                    <ListItemIcon>
-                                        <WriteIcon />
-                                    </ListItemIcon>
-                                    <Typography>{section.title}</Typography>
-                                </ListItem>
+                            book?.sections.map((section, i) => (
+                                <>
+                                    <Card sx={{ padding: '15px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1.6 }}>
+                                        <Typography>{section.title}</Typography>
+                                        <ButtonGroup>
+                                            <Button
+                                                variant="outlined"
+                                                color="secondary"
+                                                endIcon={<WriteIcon />}
+                                                onClick={() => setDialogs({ create: { section: section } })}
+                                            >
+                                                {i18n('common:create', { name: '' })}
+                                            </Button>
+                                            <Button
+                                                variant="outlined"
+                                                color="primary"
+                                                endIcon={<WriteIcon />}
+                                                onClick={() => setDialogs({ list: { section: section } })}
+                                            >
+                                                {i18n('common:list', { name: '' })}
+                                            </Button>
+                                        </ButtonGroup>
+                                    </Card>
+                                </>
                             ))
                         }
-                    </List>
+                    </Stack>
                 </Paper>
+                {
+                    dialogs.create.section ?
+                        <BookSectionDocumentCreate
+                            section={dialogs.create.section}
+                            onClose={(created) => {
+                                setDialogs({
+                                    list: { section: (created ? dialogs.create.section : null) },
+                                    create: { section: null }
+                                });
+                            }}
+                        />
+                        : null
+                }
+                {
+                    dialogs.list.section ?
+                        <BookSectionDocumentList
+                            section={dialogs.list.section}
+                            onClose={() => {
+                                setDialogs({ list: { section: null } })
+                            }}
+                        />
+                        : null
+                }
             </Container>
-        </Loading>
+        </NetworkStatus>
     );
 }
 

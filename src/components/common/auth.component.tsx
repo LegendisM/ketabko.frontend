@@ -1,20 +1,20 @@
 "use client"
-import { IAuth } from "@/common/interfaces/auth.interface";
-import { IUser } from "@/common/interfaces/user.interface";
+import { IAuth } from "@/common/interfaces/auth/auth.interface";
+import { IUser } from "@/common/interfaces/user/user.interface";
 import { setAuthToken } from "@/common/services/auth.service";
 import { useApi } from "@/common/services/axios.service";
 import { ApiEndpoint } from "@/constants/api.constant";
 import { useRouter } from "next/navigation";
 import { FC, PropsWithChildren, createContext, useContext } from "react";
 import { useEffectOnce, useSetState } from "react-use";
-import Loading from "./loading";
+import NetworkStatus from "./network-status.component";
 
 export const AuthContext = createContext<IAuth>({ state: false, user: null });
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     const router = useRouter();
     const [auth, setAuth] = useSetState<IAuth>({ state: false, user: null });
-    const [{ loading }, fetchUser] = useApi<IUser>({
+    const [{ loading, error }, fetchUser] = useApi<IUser>({
         url: ApiEndpoint('user', 'me')
     });
 
@@ -37,7 +37,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         fetch();
         router.push('/');
     }
-    
+
     const onLogout = () => {
         setAuthToken(null);
         setAuth({ state: false, user: null });
@@ -46,10 +46,10 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ ...auth, onEnter, onLogout }}>
-            <Loading loading={loading}>
+            <NetworkStatus loading={loading} error={error} onRetry={fetch}>
                 {children}
-            </Loading>
-        </AuthContext.Provider >
+            </NetworkStatus>
+        </AuthContext.Provider>
     );
 }
 

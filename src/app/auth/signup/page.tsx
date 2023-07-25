@@ -8,10 +8,10 @@ import { useForm } from "react-hook-form";
 import { useApi } from "@/common/services/axios.service";
 import { ApiEndpoint } from "@/constants/api.constant";
 import { FC, PropsWithChildren, useContext } from "react";
-import { IAuthResponse } from "@/common/interfaces/auth.interface";
-import { AuthContext } from "@/components/common/auth";
+import { IAuthResponse } from "@/common/interfaces/auth/auth.interface";
+import { AuthContext } from "@/components/common/auth.component";
 import { useSetState } from "react-use";
-import Loading from "@/components/common/loading";
+import NetworkStatus from "@/components/common/network-status.component";
 
 const SignUp: FC<PropsWithChildren> = () => {
     const { onEnter } = useContext(AuthContext);
@@ -27,12 +27,12 @@ const SignUp: FC<PropsWithChildren> = () => {
             password: ''
         }
     });
-    const [{ loading }, signup] = useApi<IAuthResponse>({
+    const [{ loading, error }, signup] = useApi<IAuthResponse>({
         url: ApiEndpoint('auth', 'signup'),
         method: 'POST'
     });
 
-    const onAuthSubmit = async (data: unknown) => {
+    const onAuthSubmit = async (data: object) => {
         await signup({ data })
             .then(({ data: { state, token, message } }) => {
                 if (state) {
@@ -45,7 +45,7 @@ const SignUp: FC<PropsWithChildren> = () => {
     }
 
     return (
-        <Loading loading={loading}>
+        <NetworkStatus loading={loading} error={error} onRetry={() => null}>
             <Box marginTop={'5vh'}>
                 <Container maxWidth="sm">
                     <Paper
@@ -61,7 +61,6 @@ const SignUp: FC<PropsWithChildren> = () => {
                         <TextField
                             label={i18n('common:username')}
                             margin="dense"
-                            aria-describedby="username-helper"
                             helperText={errors.username?.message}
                             {...register('username', {
                                 required: { value: true, message: i18n('validation:required') },
@@ -73,7 +72,6 @@ const SignUp: FC<PropsWithChildren> = () => {
                             label={i18n('common:password')}
                             type="password"
                             margin="dense"
-                            aria-describedby="password-helper"
                             helperText={errors.password?.message}
                             {...register('password', {
                                 required: { value: true, message: i18n('validation:required') },
@@ -103,7 +101,7 @@ const SignUp: FC<PropsWithChildren> = () => {
                     </Paper>
                 </Container>
             </Box>
-        </Loading>
+        </NetworkStatus>
     );
 }
 

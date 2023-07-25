@@ -8,10 +8,10 @@ import { useForm } from "react-hook-form";
 import { useApi } from "@/common/services/axios.service";
 import { ApiEndpoint } from "@/constants/api.constant";
 import { FC, PropsWithChildren, useContext } from "react";
-import { IAuthResponse } from "@/common/interfaces/auth.interface";
-import { AuthContext } from "@/components/common/auth";
+import { IAuthResponse } from "@/common/interfaces/auth/auth.interface";
+import { AuthContext } from "@/components/common/auth.component";
 import { useSetState } from "react-use";
-import Loading from "@/components/common/loading";
+import NetworkStatus from "@/components/common/network-status.component";
 
 const SignIn: FC<PropsWithChildren> = () => {
     const { onEnter } = useContext(AuthContext);
@@ -27,12 +27,12 @@ const SignIn: FC<PropsWithChildren> = () => {
             password: ''
         }
     });
-    const [{ loading }, signin] = useApi<IAuthResponse>({
+    const [{ loading, error }, signin] = useApi<IAuthResponse>({
         url: ApiEndpoint('auth', 'signin'),
         method: 'POST'
     });
 
-    const onAuthSubmit = async (data: unknown) => {
+    const onAuthSubmit = async (data: object) => {
         await signin({ data })
             .then(({ data: { state, token, message } }) => {
                 if (state) {
@@ -45,7 +45,7 @@ const SignIn: FC<PropsWithChildren> = () => {
     }
 
     return (
-        <Loading loading={loading}>
+        <NetworkStatus loading={loading} error={error} onRetry={() => null}>
             <Box marginTop={'5vh'}>
                 <Container maxWidth="sm">
                     <Paper
@@ -53,7 +53,7 @@ const SignIn: FC<PropsWithChildren> = () => {
                         component={'form'}
                         onSubmit={handleSubmit(onAuthSubmit)}
                     >
-                        <Box display={'flex'} flexDirection={'row'} justifyContent={'center'} alignItems={'center'} marginTop={'10px'} marginBottom={'10px'}>
+                        <Box display={'flex'} flexDirection={'row'} justifyContent={'center'} alignItems={'center'} marginY={'10px'}>
                             <AvatarPro />
                             <Typography fontSize={'1.05rem'} fontWeight={'bold'} sx={{ marginLeft: '12px' }}>{i18n('common:signin-long')}</Typography>
                         </Box>
@@ -61,7 +61,6 @@ const SignIn: FC<PropsWithChildren> = () => {
                         <TextField
                             label={i18n('common:username')}
                             margin="dense"
-                            aria-describedby="username-helper"
                             helperText={errors.username?.message}
                             {...register('username', {
                                 required: { value: true, message: i18n('validation:required') },
@@ -73,7 +72,6 @@ const SignIn: FC<PropsWithChildren> = () => {
                             label={i18n('common:password')}
                             type="password"
                             margin="dense"
-                            aria-describedby="password-helper"
                             helperText={errors.password?.message}
                             {...register('password', {
                                 required: { value: true, message: i18n('validation:required') },
@@ -103,7 +101,7 @@ const SignIn: FC<PropsWithChildren> = () => {
                     </Paper>
                 </Container>
             </Box>
-        </Loading>
+        </NetworkStatus>
     );
 }
 

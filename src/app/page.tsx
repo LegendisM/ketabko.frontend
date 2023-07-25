@@ -1,22 +1,22 @@
 "use client"
 import _ from "lodash";
-import { IBook } from "@/common/interfaces/book.interface";
-import { IPagination } from "@/common/interfaces/pagination";
+import { IBook } from "@/common/interfaces/book/book.interface";
+import { IPagination } from "@/common/interfaces/common/pagination";
 import { useApi } from "@/common/services/axios.service";
 import BookCategoryItem from "@/components/book/category/book-category-item";
 import BookCategory from "@/components/book/category/book-category.component";
 import { ApiEndpoint } from "@/constants/api.constant";
 import { FC, PropsWithChildren } from "react";
-import Loading from "@/components/common/loading";
+import NetworkStatus from "@/components/common/network-status.component";
 
 const Home: FC<PropsWithChildren> = () => {
-  const [{ data: books, loading }, fetchBooks] = useApi<IPagination<IBook>>({
+  const [{ data: books, loading, error }, fetchBooks] = useApi<IPagination<IBook>>({
     url: ApiEndpoint('book', 'all'),
-    params: { page: 1, limit: 20 }
+    params: { page: 1, limit: 100 }
   }, { manual: false });
 
   return (
-    <Loading loading={loading}>
+    <NetworkStatus loading={loading} error={error} onRetry={fetchBooks}>
       <BookCategory name="رایگان استفاده کنید">
         {
           books?.items.map((book) => (
@@ -58,7 +58,7 @@ const Home: FC<PropsWithChildren> = () => {
           )))
         }
       </BookCategory>
-    </Loading>
+    </NetworkStatus>
   );
 }
 

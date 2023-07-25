@@ -15,7 +15,11 @@ export const API_CONFIG: Record<string, Record<string, string>> = {
     ['book']: {
         ['all']: '/books/',
         ['find']: '/books/{id}'
-    }
+    },
+    ['book-section-document']: {
+        ['create']: '/book-section-documents/me',
+        ['find-all-by-section']: '/book-section-documents/me/section/{section}',
+    },
 };
 
 export const ApiEndpoint = (category: string, key: string, values: Record<string, any> = {}): string => {
