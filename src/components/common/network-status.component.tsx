@@ -8,7 +8,12 @@ import { i18n } from "@/i18n/i18n";
 import { IResponseError } from "@/common/interfaces/common/error.interface";
 import _ from "lodash";
 
-const NetworkStatus: FC<PropsWithChildren & { loading: boolean, error: AxiosError<IResponseError> | null, whitelist?: number[], onRetry?(): void }> = ({ loading, error, whitelist = [200, 201, 401, 403], onRetry, children }) => {
+const NetworkStatus: FC<PropsWithChildren & {
+    loading: boolean,
+    error: AxiosError<IResponseError> | null,
+    whitelist?: number[],
+    onRetry?(): void
+}> = ({ loading, error, whitelist = [200, 201, 401], onRetry, children }) => {
     const [info, setInfo] = useSetState({ init: false, enabled: false, content: '', canRetry: false });
 
     useEffect(() => {
@@ -17,6 +22,8 @@ const NetworkStatus: FC<PropsWithChildren & { loading: boolean, error: AxiosErro
         if (code && _.includes(whitelist, status) == false) {
             if (status == 404) {
                 setInfo({ enabled: true, content: i18n('errors:not-found-404'), canRetry: false });
+            } else if (status == 403) {
+                setInfo({ enabled: true, content: i18n('errors:auth-access-error'), canRetry: false });
             } else {
                 setInfo({ enabled: true, content: i18n('errors:internal-error'), canRetry: true });
             }
