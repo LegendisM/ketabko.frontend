@@ -12,8 +12,10 @@ import { IAuthResponse } from "@/common/interfaces/auth/auth.interface";
 import { AuthContext } from "@/components/common/auth.component";
 import { useSetState } from "react-use";
 import NetworkStatus from "@/components/common/network-status.component";
+import { useRouter } from "next/navigation";
 
 const SignIn: FC<PropsWithChildren> = () => {
+    const router = useRouter();
     const { onEnter } = useContext(AuthContext);
     const [messages, setMessages] = useSetState({ error: '' });
     const {
@@ -45,7 +47,7 @@ const SignIn: FC<PropsWithChildren> = () => {
     }
 
     return (
-        <NetworkStatus loading={loading} error={error} onRetry={() => null}>
+        <NetworkStatus loading={loading} error={error} onRetry={() => router.replace('.')}>
             <Box marginTop={'5vh'}>
                 <Container maxWidth="sm">
                     <Paper

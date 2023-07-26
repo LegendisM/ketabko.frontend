@@ -7,6 +7,8 @@ import { CacheProvider } from '@emotion/react';
 import rtlPlugin from 'stylis-plugin-rtl';
 import localFont from "next/font/local";
 import { createTheme, Box, responsiveFontSizes } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers-pro";
+import { AdapterDateFnsJalali } from '@mui/x-date-pickers-pro/AdapterDateFnsJalali';
 
 const defaultFont = localFont({
     src: [
@@ -72,9 +74,11 @@ const Theme: FC<PropsWithChildren> = ({ children }) => {
     return (
         <CacheProvider value={cacheRtl}>
             <ThemeProvider theme={theme}>
-                <Box component={'body'} sx={{ backgroundColor: theme.palette.background.default, width: '100vw', height: '100vh' }}>
-                    {children}
-                </Box>
+                <LocalizationProvider dateAdapter={AdapterDateFnsJalali}>
+                    <Box component={'body'} sx={{ backgroundColor: theme.palette.background.default, width: '100vw', height: '100vh' }}>
+                        {children}
+                    </Box>
+                </LocalizationProvider>
             </ThemeProvider>
         </CacheProvider>
     );

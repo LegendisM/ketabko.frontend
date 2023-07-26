@@ -117,8 +117,9 @@ const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id
                         : null
                 }
                 {
-                    dialogs.list.section ?
+                    book && dialogs.list.section ?
                         <BookSectionDocumentList
+                            book={book}
                             section={dialogs.list.section}
                             onClose={() => {
                                 setDialogs({ list: { section: null } })

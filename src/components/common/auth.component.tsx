@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 import { FC, PropsWithChildren, createContext, useContext } from "react";
 import { useEffectOnce, useSetState } from "react-use";
 import NetworkStatus from "./network-status.component";
+import { i18n } from "@/i18n/i18n";
+import { Container, Paper, Typography, Button } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const AuthContext = createContext<IAuth>({ state: false, user: null });
 
@@ -53,10 +56,32 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     );
 }
 
-export const AuthAccess: FC<PropsWithChildren & { isAuth: boolean }> = ({ isAuth = true, children }) => {
+export const AuthAccess: FC<PropsWithChildren & { isAuth: boolean, defaultMessage?: boolean }> = ({ isAuth = true, defaultMessage = false, children }) => {
     const { state } = useContext(AuthContext);
     return (
-        state == isAuth ? children : null
+        state == isAuth ? children : (defaultMessage ? <AuthAccessError /> : null)
+    );
+}
+
+export const AuthAccessError: FC = () => {
+    const router = useRouter();
+
+    return (
+        <Container sx={{ padding: '15px' }}>
+            <Paper sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '15px' }}>
+                <Typography>
+                    {i18n('errors:auth-access-error')}
+                </Typography>
+                <Button
+                    variant="outlined"
+                    color="error"
+                    endIcon={<ArrowBackIcon />}
+                    onClick={() => router.push('/')}
+                >
+                    {i18n('common:back')}
+                </Button>
+            </Paper>
+        </Container>
     );
 }
 
