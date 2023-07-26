@@ -29,7 +29,7 @@ const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id
     }, { manual: false });
 
     return (
-        <NetworkStatus loading={loading} error={error} onRetry={fetchBook}>
+        <NetworkStatus loading={loading} error={error} backHref="/" onRetry={fetchBook}>
             <Container sx={{ padding: '15px' }}>
                 <Paper sx={{ padding: '15px' }}>
                     <Stack display={'flex'} flexDirection={'row'}>

@@ -24,7 +24,7 @@ const BookSectionDocumentRemove: FC<{ params: { id: string, document: string } }
 
     return (
         <AuthAccess isAuth defaultMessage={true}>
-            <NetworkStatus loading={loading} error={error} onRetry={deleteDocument}>
+            <NetworkStatus loading={loading} error={error} backHref={`/book/${book}`} onRetry={deleteDocument}>
                 <Container maxWidth="sm" sx={{ padding: '15px' }}>
                     <Alert> {i18n("messages:successfully-removed")}</Alert>
                 </Container>

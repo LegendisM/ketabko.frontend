@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import { Button, Container, Paper, Typography } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/RefreshRounded";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { FC, PropsWithChildren, useEffect } from "react";
 import { useSetState } from "react-use";
 import Loading from "./loading";
@@ -12,8 +13,9 @@ const NetworkStatus: FC<PropsWithChildren & {
     loading: boolean,
     error: AxiosError<IResponseError> | null,
     whitelist?: number[],
+    backHref?: string,
     onRetry?(): void
-}> = ({ loading, error, whitelist = [200, 201, 401], onRetry, children }) => {
+}> = ({ loading, error, whitelist = [200, 201, 401], backHref, onRetry, children }) => {
     const [info, setInfo] = useSetState({ init: false, enabled: false, content: '', canRetry: false });
 
     useEffect(() => {
@@ -52,7 +54,16 @@ const NetworkStatus: FC<PropsWithChildren & {
                             >
                                 {i18n('common:retry')}
                             </Button>
-                            : null
+                            : backHref ? (
+                                <Button
+                                    variant="outlined"
+                                    color="info"
+                                    endIcon={<ArrowBackIcon />}
+                                    href={backHref}
+                                >
+                                    {i18n('common:back')}
+                                </Button>
+                            ) : null
                     }
                 </Paper>
             </Container>

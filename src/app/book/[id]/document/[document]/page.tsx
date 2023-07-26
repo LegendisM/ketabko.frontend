@@ -55,8 +55,8 @@ const BookSectionDocument: FC<PropsWithChildren & { params: { id: string, docume
 
     return (
         <AuthAccess isAuth defaultMessage={true}>
-            <NetworkStatus loading={fetchLoading} error={fetchError} onRetry={fetchDocument}>
-                <NetworkStatus loading={updateLoading} error={updateError} onRetry={onSaveDocument}>
+            <NetworkStatus loading={fetchLoading} error={fetchError} backHref={`/book/${book}`} onRetry={fetchDocument}>
+                <NetworkStatus loading={updateLoading} error={updateError} backHref={`/book/${book}`} onRetry={onSaveDocument}>
                     <Container sx={{ padding: '15px' }}>
                         <Paper sx={{ padding: '15px' }}>
                             <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} flexWrap={'wrap'}>
