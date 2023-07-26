@@ -4,9 +4,11 @@ import { Box, Checkbox, Stack, TextField, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers-pro";
 import { FC } from "react";
 
-const BookSectionDocumentField: FC<{ field: IBookSectionField, values: IBookSectionFieldValue[] }> = ({ field, values }) => {
-    // todo set function to call when this datas has been changed
-    // todo define a list of functions to use useForm for set/get datas and validate
+const BookSectionDocumentField: FC<{
+    field: IBookSectionField,
+    value: string,
+    onChange(value: IBookSectionFieldValue): void
+}> = ({ field, value, onChange }) => {
     switch (field.type) {
         case BookSectionFieldType.TEXT:
             return (
@@ -16,7 +18,8 @@ const BookSectionDocumentField: FC<{ field: IBookSectionField, values: IBookSect
                     name={field.identifier}
                     label={field.label}
                     placeholder={field.placeholder}
-                    defaultValue={values.filter(value => value.identifier == field.identifier)[0]?.value ?? field.default}
+                    defaultValue={value}
+                    onChange={({ target: { value } }) => onChange({ identifier: field.identifier, value })}
                     helperText={`* ${field.helper}`}
                     margin="dense"
                     fullWidth
@@ -28,7 +31,8 @@ const BookSectionDocumentField: FC<{ field: IBookSectionField, values: IBookSect
                     id={field.identifier}
                     name={field.identifier}
                     placeholder={field.placeholder}
-                    defaultValue={values.filter(value => value.identifier == field.identifier)[0]?.value ?? field.default}
+                    defaultValue={value}
+                    onChange={({ target: { value } }) => onChange({ identifier: field.identifier, value })}
                     multiline
                     minRows={2}
                     maxRows={5}
@@ -43,7 +47,8 @@ const BookSectionDocumentField: FC<{ field: IBookSectionField, values: IBookSect
                     name={field.identifier}
                     label={field.label}
                     placeholder={field.placeholder}
-                    defaultValue={values.filter(value => value.identifier == field.identifier)[0]?.value ?? field.default}
+                    defaultValue={value}
+                    onChange={({ target: { value } }) => onChange({ identifier: field.identifier, value })}
                     helperText={`* ${field.helper}`}
                     margin="dense"
                     fullWidth
@@ -53,8 +58,12 @@ const BookSectionDocumentField: FC<{ field: IBookSectionField, values: IBookSect
             return (
                 <DatePicker
                     label={field.label}
-                    disablePast={true}
-                    defaultValue={values.filter(value => value.identifier == field.identifier)[0]?.value ?? field.default}
+                    defaultValue={value.length != 0 ? new Date(value) : new Date()}
+                    onAccept={(value) => {
+                        if (value) {
+                            onChange({ identifier: field.identifier, value: new Date(value).toISOString() });
+                        }
+                    }}
                     sx={{ width: '100%' }}
                 />
             );
@@ -69,7 +78,8 @@ const BookSectionDocumentField: FC<{ field: IBookSectionField, values: IBookSect
                         id={field.identifier}
                         name={field.identifier}
                         placeholder={field.placeholder}
-                        defaultValue={values.filter(value => value.identifier == field.identifier)[0]?.value ?? field.default}
+                        checked={value == "true"}
+                        onChange={({ target: { checked } }) => onChange({ identifier: field.identifier, value: String(checked) })}
                     />
                 </Stack>
             );
