@@ -19,6 +19,9 @@ export const API_CONFIG: Record<string, Record<string, string>> = {
     ['book-section-document']: {
         ['create']: '/book-section-documents/me',
         ['find-all-by-section']: '/book-section-documents/me/section/{section}',
+        ['find-one']: '/book-section-documents/me/{id}',
+        ['update-one']: '/book-section-documents/me/{id}',
+        ['remove-one']: '/book-section-documents/me/{id}',
     },
 };
 

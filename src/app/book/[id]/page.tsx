@@ -1,8 +1,9 @@
 "use client"
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useContext } from "react";
 import StarIcon from "@mui/icons-material/StarRounded";
 import StarBorderIcon from "@mui/icons-material/StarBorderRounded";
 import WriteIcon from "@mui/icons-material/DriveFileRenameOutline";
+import ListIcon from "@mui/icons-material/ListAltRounded";
 import ListRoundedIcon from "@mui/icons-material/ViewListRounded";
 import { Container, Paper, Typography, Box, Stack, Divider, Rating, Chip, Card, Button, ButtonGroup } from "@mui/material";
 import { i18n } from "@/i18n/i18n";
@@ -15,8 +16,10 @@ import BookSectionDocumentCreate from "@/components/book/section/book-section-do
 import { useSetState } from "react-use";
 import { IBookSection } from "@/common/interfaces/book/book-section.interface";
 import BookSectionDocumentList from "@/components/book/section/book-section-document-list.component";
+import { AuthAccess, AuthContext } from "@/components/common/auth.component";
 
 const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id } }) => {
+    const { state } = useContext(AuthContext);
     const [dialogs, setDialogs] = useSetState<{ create: { section: IBookSection | null }, list: { section: IBookSection | null } }>({
         create: { section: null },
         list: { section: null }
@@ -26,7 +29,7 @@ const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id
     }, { manual: false });
 
     return (
-        <NetworkStatus loading={loading} error={error} onRetry={fetchBook}>
+        <NetworkStatus loading={loading} error={error} backHref="/" onRetry={fetchBook}>
             <Container sx={{ padding: '15px' }}>
                 <Paper sx={{ padding: '15px' }}>
                     <Stack display={'flex'} flexDirection={'row'}>
@@ -58,18 +61,25 @@ const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id
                     </Stack>
                 </Paper>
                 <Paper sx={{ marginTop: '15px', padding: '15px' }}>
-                    <Box display={'flex'} flexDirection={'row'} alignItems={'center'} gap={1}>
-                        <ListRoundedIcon />
-                        <Typography fontWeight={'bold'}>الگوریتم ها</Typography>
+                    <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'} flexWrap={'wrap'} gap={1}>
+                        <Box display={'flex'} flexDirection={'row'} alignItems={'center'} gap={1}>
+                            <ListRoundedIcon />
+                            <Typography fontWeight={'bold'}>الگوریتم ها</Typography>
+                        </Box>
+                        <Box>
+                            <AuthAccess isAuth={false}>
+                                <Typography variant="caption" fontWeight={"bold"} color={"darkred"}>{i18n('errors:auth-operation-access-error')}</Typography>
+                            </AuthAccess>
+                        </Box>
                     </Box>
                     <Divider sx={{ marginY: '12px' }} />
                     <Stack direction={'column'} gap={2}>
                         {
-                            book?.sections.map((section, i) => (
-                                <>
-                                    <Card sx={{ padding: '15px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1.6 }}>
-                                        <Typography>{section.title}</Typography>
-                                        <ButtonGroup>
+                            book?.sections.map((section) => (
+                                <Card sx={{ padding: '15px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1.6 }}>
+                                    <Typography>{section.title}</Typography>
+                                    <Stack direction={"column"}>
+                                        <ButtonGroup disabled={!state}>
                                             <Button
                                                 variant="outlined"
                                                 color="secondary"
@@ -81,14 +91,14 @@ const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id
                                             <Button
                                                 variant="outlined"
                                                 color="primary"
-                                                endIcon={<WriteIcon />}
+                                                endIcon={<ListIcon />}
                                                 onClick={() => setDialogs({ list: { section: section } })}
                                             >
                                                 {i18n('common:list', { name: '' })}
                                             </Button>
                                         </ButtonGroup>
-                                    </Card>
-                                </>
+                                    </Stack>
+                                </Card>
                             ))
                         }
                     </Stack>
@@ -107,8 +117,9 @@ const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id
                         : null
                 }
                 {
-                    dialogs.list.section ?
+                    book && dialogs.list.section ?
                         <BookSectionDocumentList
+                            book={book}
                             section={dialogs.list.section}
                             onClose={() => {
                                 setDialogs({ list: { section: null } })

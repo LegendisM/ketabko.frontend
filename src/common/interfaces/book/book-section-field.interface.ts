@@ -1,14 +1,18 @@
 export enum BookSectionFieldType {
     TEXT = 'text',
+    TEXTAREA = 'textarea',
     NUMBER = 'number',
     DATE = 'date',
-    TOGGLE = "toggle"
+    CHECKBOX = "checkbox"
 }
 
 export interface IBookSectionField {
     type: BookSectionFieldType;
-    index: number;
     identifier: string;
+    label: string;
     placeholder: string;
+    helper: string;
     default: string;
+    group: string;
+    row: number;
 }
