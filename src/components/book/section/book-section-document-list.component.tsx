@@ -1,6 +1,6 @@
 "use client"
 import { i18n } from "@/i18n/i18n";
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 import { IBookSection } from "@/common/interfaces/book/book-section.interface";
 import { IResponseError } from "@/common/interfaces/common/error.interface";
 import { useApi } from "@/common/services/axios.service";
@@ -13,7 +13,7 @@ import { IBookSectionDocument } from "@/common/interfaces/book/book-section-docu
 import { convertDate } from "@/common/helpers/date.helper";
 import { IBook } from "@/common/interfaces/book/book.interface";
 
-const BookSectionDocumentList: FC<PropsWithChildren & { book: IBook, section: IBookSection, onClose: Function }> = ({ book, section, onClose }) => {
+const BookSectionDocumentList: FC<{ book: IBook, section: IBookSection, onClose: Function }> = ({ book, section, onClose }) => {
     const [{ data: documents, loading, error }, fetchDocuments] = useApi<IPagination<IBookSectionDocument>, any, IResponseError>({
         url: ApiEndpoint('book-section-document', 'find-all-by-section', { section: section.id }),
         method: 'GET',

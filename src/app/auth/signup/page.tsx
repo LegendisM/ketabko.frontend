@@ -7,14 +7,14 @@ import { Box, Paper, TextField, Button, Container, Typography, Divider, Alert } 
 import { useForm } from "react-hook-form";
 import { useApi } from "@/common/services/axios.service";
 import { ApiEndpoint } from "@/constants/api.constant";
-import { FC, PropsWithChildren, useContext } from "react";
+import { FC, useContext } from "react";
 import { IAuthResponse } from "@/common/interfaces/auth/auth.interface";
 import { AuthContext } from "@/components/common/auth.component";
 import { useSetState } from "react-use";
 import NetworkStatus from "@/components/common/network-status.component";
 import { useRouter } from "next/navigation";
 
-const SignUp: FC<PropsWithChildren> = () => {
+const SignUp: FC = () => {
     const router = useRouter();
     const { onEnter } = useContext(AuthContext);
     const [messages, setMessages] = useSetState({ error: '' });
