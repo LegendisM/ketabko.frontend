@@ -8,6 +8,7 @@ import BookCategory from "@/components/book/category/book-category.component";
 import { ApiEndpoint } from "@/constants/api.constant";
 import { FC, PropsWithChildren } from "react";
 import NetworkStatus from "@/components/common/network-status.component";
+import { Container } from "@mui/material";
 
 const Home: FC<PropsWithChildren> = () => {
   const [{ data: books, loading, error }, fetchBooks] = useApi<IPagination<IBook>>({
@@ -17,47 +18,52 @@ const Home: FC<PropsWithChildren> = () => {
 
   return (
     <NetworkStatus loading={loading} error={error} onRetry={fetchBooks}>
-      <BookCategory name="رایگان استفاده کنید">
-        {
-          books?.items.map((book) => (
-            <BookCategoryItem
-              id={book.id}
-              title={book.title}
-              description={book.description}
-              image={`${ApiEndpoint('main', 'storage')}/${book.cover.path}`}
-              mode="info"
-            />
-          ))
-        }
-      </BookCategory>
+      <Container maxWidth={"xl"}>
+        <BookCategory name="رایگان استفاده کنید">
+          {
+            books?.items.map((book, index) => (
+              <BookCategoryItem
+                key={index}
+                id={book.id}
+                title={book.title}
+                description={book.description}
+                image={`${ApiEndpoint('main', 'storage')}/${book.cover.path}`}
+                mode="info"
+              />
+            ))
+          }
+        </BookCategory>
 
-      <BookCategory name="ارزان تر از یک بستنی">
-        {
-          _.shuffle(books?.items.map((book) => (
-            <BookCategoryItem
-              id={book.id}
-              title={book.title}
-              description={book.description}
-              image={`${ApiEndpoint('main', 'storage')}/${book.cover.path}`}
-              mode="success"
-            />
-          )))
-        }
-      </BookCategory>
+        <BookCategory name="ارزان تر از یک بستنی">
+          {
+            _.shuffle(books?.items.map((book, index) => (
+              <BookCategoryItem
+                key={index}
+                id={book.id}
+                title={book.title}
+                description={book.description}
+                image={`${ApiEndpoint('main', 'storage')}/${book.cover.path}`}
+                mode="success"
+              />
+            )))
+          }
+        </BookCategory>
 
-      <BookCategory name="هرآنچه که باید منتظر آن باشید">
-        {
-          _.shuffle(books?.items.map((book) => (
-            <BookCategoryItem
-              id={book.id}
-              title={book.title}
-              description={book.description}
-              image={`${ApiEndpoint('main', 'storage')}/${book.cover.path}`}
-              mode="secondary"
-            />
-          )))
-        }
-      </BookCategory>
+        <BookCategory name="هرآنچه که باید منتظر آن باشید">
+          {
+            _.shuffle(books?.items.map((book, index) => (
+              <BookCategoryItem
+                key={index}
+                id={book.id}
+                title={book.title}
+                description={book.description}
+                image={`${ApiEndpoint('main', 'storage')}/${book.cover.path}`}
+                mode="secondary"
+              />
+            )))
+          }
+        </BookCategory>
+      </Container>
     </NetworkStatus>
   );
 }

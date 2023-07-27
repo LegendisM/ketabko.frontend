@@ -75,8 +75,8 @@ const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id
                     <Divider sx={{ marginY: '12px' }} />
                     <Stack direction={'column'} gap={2}>
                         {
-                            book?.sections.map((section) => (
-                                <Card sx={{ padding: '15px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1.6 }}>
+                            book?.sections.map((section, index) => (
+                                <Card key={index} sx={{ padding: '15px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1.6 }}>
                                     <Typography>{section.title}</Typography>
                                     <Stack direction={"column"}>
                                         <ButtonGroup disabled={!state}>

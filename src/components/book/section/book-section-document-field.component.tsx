@@ -20,7 +20,7 @@ const BookSectionDocumentField: FC<{
                     placeholder={field.placeholder}
                     defaultValue={value}
                     onChange={({ target: { value } }) => onChange({ identifier: field.identifier, value })}
-                    helperText={`* ${field.helper}`}
+                    helperText={`• ${field.helper}`}
                     margin="dense"
                     fullWidth
                 />
@@ -49,7 +49,7 @@ const BookSectionDocumentField: FC<{
                     placeholder={field.placeholder}
                     defaultValue={value}
                     onChange={({ target: { value } }) => onChange({ identifier: field.identifier, value })}
-                    helperText={`* ${field.helper}`}
+                    helperText={`• ${field.helper}`}
                     margin="dense"
                     fullWidth
                 />
@@ -72,7 +72,7 @@ const BookSectionDocumentField: FC<{
                 <Stack direction={'row'} alignItems={'center'} gap={1} sx={{ marginTop: "15px", marginBottom: '4px' }}>
                     <Box>
                         <Typography variant="subtitle2">{field.label}</Typography>
-                        <Typography variant="caption">{`* ${field.helper}`}</Typography>
+                        <Typography variant="caption">{`• ${field.helper}`}</Typography>
                     </Box>
                     <Checkbox
                         id={field.identifier}

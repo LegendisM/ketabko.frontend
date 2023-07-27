@@ -68,14 +68,15 @@ const BookSectionDocument: FC<PropsWithChildren & { params: { id: string, docume
                             {
                                 document ?
                                     _.map(_.groupBy(document?.section?.fields, (field) => field.group), (fields, group) =>
-                                        <Box marginY={'4px'}>
+                                        <Box key={group} marginY={'4px'}>
                                             <Typography marginBottom={'4px'}>{group}</Typography>
                                             {
-                                                _.map(_.groupBy(fields, (field) => field.row), (fields) => (
-                                                    <Stack direction={'row'} alignItems={'baseline'} gap={1}>
+                                                _.map(_.groupBy(fields, (field) => field.row), (fields, groupIndex) => (
+                                                    <Stack key={groupIndex} direction={'row'} alignItems={'baseline'} gap={1}>
                                                         {
-                                                            fields.map((field) => (
+                                                            fields.map((field, index) => (
                                                                 <BookSectionDocumentField
+                                                                    key={index}
                                                                     field={field}
                                                                     value={values[field.identifier]}
                                                                     onChange={({ identifier, value }) => {
