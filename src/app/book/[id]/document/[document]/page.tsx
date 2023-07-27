@@ -1,6 +1,6 @@
 "use client"
 import _ from "lodash";
-import { FC, PropsWithChildren, useEffect } from "react";
+import { FC, useEffect } from "react";
 import { IBookSectionDocument } from "@/common/interfaces/book/book-section-document.interface";
 import { IResponseError } from "@/common/interfaces/common/error.interface";
 import { useApi } from "@/common/services/axios.service";
@@ -14,7 +14,7 @@ import { useSetState } from "react-use";
 import { IBookSectionFieldValue } from "@/common/interfaces/book/book-section-field-value.interface";
 import { convertDate } from "@/common/helpers/date.helper";
 
-const BookSectionDocument: FC<PropsWithChildren & { params: { id: string, document: string } }> = ({ params: { id: book, document: id } }) => {
+const BookSectionDocument: FC<{ params: { id: string, document: string } }> = ({ params: { id: book, document: id } }) => {
     const [values, setValues] = useSetState<Record<string, string>>({});
     const [{ data: document, loading: fetchLoading, error: fetchError }, fetchDocument] = useApi<IBookSectionDocument, any, IResponseError>({
         url: ApiEndpoint('book-section-document', 'find-one', { id })

@@ -1,7 +1,7 @@
 "use client"
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 
-const Logo: FC<PropsWithChildren & { isText: boolean }> = ({ isText }) => {
+const Logo: FC<{ isText: boolean }> = ({ isText }) => {
     return (
         <img
             src={`/images/common/logo${isText ? '-text' : ''}.png`}

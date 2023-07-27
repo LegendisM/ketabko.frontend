@@ -2,8 +2,8 @@ import _ from "lodash";
 
 export const API_CONFIG: Record<string, Record<string, string>> = {
     ['main']: {
-        ['base']: 'http://127.0.0.1:3000/api/v1',
-        ['storage']: 'http://127.0.0.1:3000'
+        ['base']: 'http://localhost:3000/api/v1',
+        ['storage']: 'http://localhost:3000'
     },
     ['user']: {
         ['me']: '/users/me'

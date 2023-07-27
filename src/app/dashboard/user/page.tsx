@@ -3,10 +3,10 @@ import { AuthContext } from "@/components/common/auth.component";
 import AvatarPro from "@/components/common/avatar.component";
 import { i18n } from "@/i18n/i18n";
 import { Box, Container, Paper, Typography, Divider, TextField } from "@mui/material";
-import { FC, PropsWithChildren, useContext, useEffect } from "react";
+import { FC, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-const User: FC<PropsWithChildren> = () => {
+const User: FC = () => {
     const { user } = useContext(AuthContext);
     const { setValue, register } = useForm({
         defaultValues: {

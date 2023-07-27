@@ -1,9 +1,9 @@
 import { i18n } from "@/i18n/i18n";
 import { Paper, Stack, Typography, Button } from "@mui/material";
 import Link from "next/link";
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 
-const BookCategoryItem: FC<PropsWithChildren & {
+const BookCategoryItem: FC<{
     id: string,
     title: string,
     description: string,
@@ -21,6 +21,7 @@ const BookCategoryItem: FC<PropsWithChildren & {
                     <img
                         src={image}
                         style={{ width: '110px', height: '150px' }}
+                        alt="todo"
                     />
                     <Stack direction={'column'} gap={1}>
                         <Typography fontWeight={'bold'}>{title}</Typography>

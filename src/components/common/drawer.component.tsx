@@ -1,14 +1,14 @@
 "use client"
 import Link from "next/link";
 import { i18n } from "@/i18n/i18n";
-import { FC, PropsWithChildren, useContext } from "react";
+import { FC, useContext } from "react";
 import { PAGES } from "@/constants/page.constant";
 import { Drawer, Box, Typography, List, ListItem, Divider } from "@mui/material";
 import ArrowIcon from "@mui/icons-material/KeyboardArrowLeft";
 import AvatarPro from "./avatar.component";
 import { AuthContext } from "./auth.component";
 
-const DrawerPro: FC<PropsWithChildren & { opened: boolean, onClose: Function, forceClose: Function }> = ({ opened, onClose, forceClose }) => {
+const DrawerPro: FC<{ opened: boolean, onClose: Function, forceClose: Function }> = ({ opened, onClose, forceClose }) => {
     const { state: authState } = useContext(AuthContext);
     return (
         <Drawer

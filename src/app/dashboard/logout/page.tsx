@@ -1,10 +1,9 @@
 "use client"
 import { AuthContext } from "@/components/common/auth.component";
-import { Container } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { FC, PropsWithChildren, useContext } from "react";
+import { FC, useContext } from "react";
 
-const Logout: FC<PropsWithChildren> = () => {
+const Logout: FC = () => {
     const router = useRouter();
     const { state, onLogout } = useContext(AuthContext);
 

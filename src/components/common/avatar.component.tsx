@@ -1,8 +1,8 @@
 "use client"
 import { Avatar } from "@mui/material";
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 
-const AvatarPro: FC<PropsWithChildren> = () => {
+const AvatarPro: FC = () => {
     return (
         <Avatar src="/images/common/avatar.png" sx={{ width: '60px', height: '60px' }} />
     );

@@ -1,6 +1,6 @@
 "use client"
 import { useToggle } from "react-use";
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 import { AppBar, Box, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "./logo.component";
@@ -8,7 +8,7 @@ import DrawerPro from "./drawer.component";
 import { usePathname } from "next/navigation";
 import { BackButton } from "./buttons.component";
 
-const Header: FC<PropsWithChildren> = () => {
+const Header: FC = () => {
     const pathname = usePathname();
     const [isToggled, toggleDrawer] = useToggle(false);
 

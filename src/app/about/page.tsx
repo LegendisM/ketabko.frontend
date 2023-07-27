@@ -1,9 +1,9 @@
 "use client"
 import { Box, Container, Paper, Typography, Divider, Card, CardMedia, CardContent, IconButton } from "@mui/material";
 import { GitHub, Telegram, Instagram } from "@mui/icons-material";
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 
-const About: FC<PropsWithChildren> = () => {
+const About: FC = () => {
     return (
         <Box marginTop={'5vh'}>
             <Container maxWidth="sm" >

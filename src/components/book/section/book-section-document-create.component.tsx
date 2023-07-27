@@ -1,7 +1,7 @@
 "use client"
 import { i18n } from "@/i18n/i18n";
 import { useForm } from "react-hook-form";
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 import { IBookSection } from "@/common/interfaces/book/book-section.interface";
 import { IResponseError } from "@/common/interfaces/common/error.interface";
 import { useApi } from "@/common/services/axios.service";
@@ -10,7 +10,7 @@ import { ApiEndpoint } from "@/constants/api.constant";
 import { Box, Button, Dialog, Divider, Paper, TextField, Typography } from "@mui/material";
 import { CloseButton } from "@/components/common/buttons.component";
 
-const BookSectionDocumentCreate: FC<PropsWithChildren & { section: IBookSection, onClose(created: boolean): void }> = ({ section, onClose }) => {
+const BookSectionDocumentCreate: FC<{ section: IBookSection, onClose(created: boolean): void }> = ({ section, onClose }) => {
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: 'onChange',
         defaultValues: {

@@ -6,11 +6,11 @@ import { useApi } from "@/common/services/axios.service";
 import BookCategoryItem from "@/components/book/category/book-category-item";
 import BookCategory from "@/components/book/category/book-category.component";
 import { ApiEndpoint } from "@/constants/api.constant";
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 import NetworkStatus from "@/components/common/network-status.component";
 import { Container } from "@mui/material";
 
-const Home: FC<PropsWithChildren> = () => {
+const Home: FC = () => {
   const [{ data: books, loading, error }, fetchBooks] = useApi<IPagination<IBook>>({
     url: ApiEndpoint('book', 'all'),
     params: { page: 1, limit: 100 }

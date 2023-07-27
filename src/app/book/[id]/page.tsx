@@ -1,5 +1,5 @@
 "use client"
-import { FC, PropsWithChildren, useContext } from "react";
+import { FC, useContext } from "react";
 import StarIcon from "@mui/icons-material/StarRounded";
 import StarBorderIcon from "@mui/icons-material/StarBorderRounded";
 import WriteIcon from "@mui/icons-material/DriveFileRenameOutline";
@@ -18,7 +18,7 @@ import { IBookSection } from "@/common/interfaces/book/book-section.interface";
 import BookSectionDocumentList from "@/components/book/section/book-section-document-list.component";
 import { AuthAccess, AuthContext } from "@/components/common/auth.component";
 
-const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id } }) => {
+const Book: FC<{ params: { id: string } }> = ({ params: { id } }) => {
     const { state } = useContext(AuthContext);
     const [dialogs, setDialogs] = useSetState<{ create: { section: IBookSection | null }, list: { section: IBookSection | null } }>({
         create: { section: null },
@@ -37,6 +37,7 @@ const Book: FC<PropsWithChildren & { params: { id: string } }> = ({ params: { id
                             <img
                                 src={`${ApiEndpoint('main', 'storage')}/${book?.cover.path}`}
                                 style={{ width: '110px', height: '150px' }}
+                                alt="todo"
                             />
                         </Box>
                         <Box margin={'10px'} paddingBottom={'10px'} gap={2} overflow={'auto'}>
