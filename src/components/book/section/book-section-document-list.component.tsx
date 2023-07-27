@@ -37,8 +37,8 @@ const BookSectionDocumentList: FC<PropsWithChildren & { book: IBook, section: IB
                 <NetworkStatus loading={loading} error={error} onRetry={fetchDocuments}>
                     <Stack gap={1.25}>
                         {
-                            documents?.items.map((document) => (
-                                <Card sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1, padding: '8px' }}>
+                            documents?.items.map((document, index) => (
+                                <Card key={index} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1, padding: '8px' }}>
                                     <Box display={'flex'} flexDirection={'column'} gap={1}>
                                         <Typography>{`${document.title.slice(0, 25)}${document.title.length >= 25 ? '...' : ''}`}</Typography>
                                         <Typography variant="subtitle2">

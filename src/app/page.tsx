@@ -21,8 +21,9 @@ const Home: FC<PropsWithChildren> = () => {
       <Container maxWidth={"xl"}>
         <BookCategory name="رایگان استفاده کنید">
           {
-            books?.items.map((book) => (
+            books?.items.map((book, index) => (
               <BookCategoryItem
+                key={index}
                 id={book.id}
                 title={book.title}
                 description={book.description}
@@ -35,8 +36,9 @@ const Home: FC<PropsWithChildren> = () => {
 
         <BookCategory name="ارزان تر از یک بستنی">
           {
-            _.shuffle(books?.items.map((book) => (
+            _.shuffle(books?.items.map((book, index) => (
               <BookCategoryItem
+                key={index}
                 id={book.id}
                 title={book.title}
                 description={book.description}
@@ -49,8 +51,9 @@ const Home: FC<PropsWithChildren> = () => {
 
         <BookCategory name="هرآنچه که باید منتظر آن باشید">
           {
-            _.shuffle(books?.items.map((book) => (
+            _.shuffle(books?.items.map((book, index) => (
               <BookCategoryItem
+                key={index}
                 id={book.id}
                 title={book.title}
                 description={book.description}
