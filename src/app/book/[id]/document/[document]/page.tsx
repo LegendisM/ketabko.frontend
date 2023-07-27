@@ -8,15 +8,13 @@ import NetworkStatus from "@/components/common/network-status.component";
 import { ApiEndpoint } from "@/constants/api.constant";
 import { Box, Button, Container, Divider, Paper, Stack, Typography } from "@mui/material";
 import { i18n } from "@/i18n/i18n";
-import { CloseButton } from "@/components/common/buttons.component";
-import { useRouter } from "next/navigation";
 import BookSectionDocumentField from "@/components/book/section/book-section-document-field.component";
 import { AuthAccess } from "@/components/common/auth.component";
 import { useSetState } from "react-use";
 import { IBookSectionFieldValue } from "@/common/interfaces/book/book-section-field-value.interface";
+import { convertDate } from "@/common/helpers/date.helper";
 
 const BookSectionDocument: FC<PropsWithChildren & { params: { id: string, document: string } }> = ({ params: { id: book, document: id } }) => {
-    const router = useRouter();
     const [values, setValues] = useSetState<Record<string, string>>({});
     const [{ data: document, loading: fetchLoading, error: fetchError }, fetchDocument] = useApi<IBookSectionDocument, any, IResponseError>({
         url: ApiEndpoint('book-section-document', 'find-one', { id })
@@ -64,9 +62,7 @@ const BookSectionDocument: FC<PropsWithChildren & { params: { id: string, docume
                                     <Typography fontWeight={'bold'}>{document?.title}</Typography>
                                     <Typography variant="caption">({document?.section.title})</Typography>
                                 </Box>
-                                <CloseButton
-                                    onClose={() => router.push(`/book/${book}`)}
-                                />
+                                <Typography>{convertDate(document?.createdAt ?? '')}</Typography>
                             </Box>
                             <Divider sx={{ marginY: '12px' }} />
                             {

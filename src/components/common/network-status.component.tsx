@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { AxiosError } from "axios";
 import { Button, Container, Paper, Typography } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/RefreshRounded";
@@ -7,7 +8,6 @@ import { useSetState } from "react-use";
 import Loading from "./loading";
 import { i18n } from "@/i18n/i18n";
 import { IResponseError } from "@/common/interfaces/common/error.interface";
-import _ from "lodash";
 
 const NetworkStatus: FC<PropsWithChildren & {
     loading: boolean,

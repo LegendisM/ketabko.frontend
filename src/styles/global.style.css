@@ -5,14 +5,14 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 6px;
   border-radius: 50px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #e4e4e4;
+  background: #e4e4e4;  
   border-radius: 50px;
 }
 
