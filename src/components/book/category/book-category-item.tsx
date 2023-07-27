@@ -21,7 +21,7 @@ const BookCategoryItem: FC<{
                     <img
                         src={image}
                         style={{ width: '110px', height: '150px' }}
-                        alt="todo"
+                        alt={title}
                     />
                     <Stack direction={'column'} gap={1}>
                         <Typography fontWeight={'bold'}>{title}</Typography>

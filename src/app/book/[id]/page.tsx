@@ -37,7 +37,7 @@ const Book: FC<{ params: { id: string } }> = ({ params: { id } }) => {
                             <img
                                 src={`${ApiEndpoint('main', 'storage')}/${book?.cover.path}`}
                                 style={{ width: '110px', height: '150px' }}
-                                alt="todo"
+                                alt={book?.cover.name ?? ""}
                             />
                         </Box>
                         <Box margin={'10px'} paddingBottom={'10px'} gap={2} overflow={'auto'}>
