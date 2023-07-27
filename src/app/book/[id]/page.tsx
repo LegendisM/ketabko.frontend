@@ -34,11 +34,13 @@ const Book: FC<{ params: { id: string } }> = ({ params: { id } }) => {
                 <Paper sx={{ padding: '15px' }}>
                     <Stack display={'flex'} flexDirection={'row'}>
                         <Box gap={1}>
-                            <img
-                                src={`${ApiEndpoint('main', 'storage')}/${book?.cover.path}`}
-                                style={{ width: '110px', height: '150px' }}
-                                alt={book?.cover.name ?? ""}
-                            />
+                            <picture>
+                                <img
+                                    src={`${ApiEndpoint('main', 'storage')}/${book?.cover.path}`}
+                                    style={{ width: '110px', height: '150px' }}
+                                    alt={book?.cover.name ?? ""}
+                                />
+                            </picture>
                         </Box>
                         <Box margin={'10px'} paddingBottom={'10px'} gap={2} overflow={'auto'}>
                             <Typography fontWeight={'bold'}>{book?.title}</Typography>

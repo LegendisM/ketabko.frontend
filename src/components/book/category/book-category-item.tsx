@@ -18,11 +18,13 @@ const BookCategoryItem: FC<{
                 sx={{ padding: '13px', width: 'auto', minWidth: '265px', maxWidth: '290px', height: 'auto', boxShadow: '0px 0px 2px 0px #840fff5e' }}
             >
                 <Stack marginBottom={'13px'} direction={'row'} gap={2} justifyContent={'flex-start'} alignItems={'flex-start'}>
-                    <img
-                        src={image}
-                        style={{ width: '110px', height: '150px' }}
-                        alt={title}
-                    />
+                    <picture>
+                        <img
+                            src={image}
+                            style={{ width: '110px', height: '150px' }}
+                            alt={title}
+                        />
+                    </picture>
                     <Stack direction={'column'} gap={1}>
                         <Typography fontWeight={'bold'}>{title}</Typography>
                         <Typography variant="caption">
